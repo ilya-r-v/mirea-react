@@ -1,0 +1,74 @@
+/* components/SearchBox.css */
+.search-box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.search-box__container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.search-box__input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-box__input {
+  width: 100%;
+  padding: 12px 16px;
+  padding-right: 40px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.search-box__input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.search-box__clear {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.search-box__clear:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.search-box__info {
+  font-size: 0.875rem;
+  color: #6b7280;
+  text-align: center;
+}
+
+.search-box__info strong {
+  color: #1f2937;
+}
+
+@media (max-width: 768px) {
+  .search-box {
+    padding: 16px;
+  }
+  
+  .search-box__input {
+    font-size: 0.875rem;
+  }
+}

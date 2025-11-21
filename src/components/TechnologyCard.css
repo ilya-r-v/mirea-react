@@ -1,0 +1,166 @@
+/* Обновленный TechnologyCard.css с улучшенной интерактивностью */
+.technology-card {
+  border: 2px solid #e1e5e9;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 16px 0;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.technology-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  transition: all 0.3s ease;
+}
+
+.technology-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.technology-card--completed {
+  border-color: #10b981;
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+}
+
+.technology-card--completed::before {
+  background: #10b981;
+}
+
+.technology-card--in-progress {
+  border-color: #f59e0b;
+  background: linear-gradient(135deg, #fffbeb, #fef3c7);
+}
+
+.technology-card--in-progress::before {
+  background: #f59e0b;
+}
+
+.technology-card--not-started {
+  border-color: #6b7280;
+  background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+}
+
+.technology-card--not-started::before {
+  background: #6b7280;
+}
+
+.technology-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.technology-card__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  flex: 1;
+}
+
+.technology-card__status {
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: white;
+  margin-left: 12px;
+  transition: all 0.3s ease;
+}
+
+.technology-card--completed .technology-card__status {
+  color: #065f46;
+  background: #d1fae5;
+}
+
+.technology-card--in-progress .technology-card__status {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+.technology-card--not-started .technology-card__status {
+  color: #374151;
+  background: #f3f4f6;
+}
+
+.technology-card__description {
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+}
+
+.technology-card__progress {
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.technology-card__progress-bar {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.technology-card__progress-bar--completed {
+  background: #10b981;
+  width: 100%;
+}
+
+.technology-card__progress-bar--in-progress {
+  background: #f59e0b;
+  width: 50%;
+}
+
+.technology-card__progress-bar--not-started {
+  background: #6b7280;
+  width: 0%;
+}
+
+/* Анимация при изменении статуса */
+.technology-card {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.7;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Обновленный TechnologyCard.css - добавить новые стили */
+.technology-card {
+  /* существующие стили */
+  position: relative;
+}
+
+/* Улучшаем отступы для карточек с заметками */
+.technology-card__description {
+  margin-bottom: 8px;
+}
+
+/* Анимация при сохранении заметок */
+@keyframes savePulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.technology-notes:has(textarea:focus) {
+  animation: savePulse 0.3s ease;
+}

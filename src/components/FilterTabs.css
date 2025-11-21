@@ -1,0 +1,61 @@
+/* components/FilterTabs.css */
+.filter-tabs {
+  background: white;
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.filter-tabs__container {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-tabs__tab {
+  padding: 8px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 20px;
+  background: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.filter-tabs__tab:hover {
+  border-color: #d1d5db;
+  background: #f9fafb;
+}
+
+.filter-tabs__tab--active {
+  border-color: #3b82f6;
+  background: #3b82f6;
+  color: white;
+}
+
+.filter-tabs__tab--active:hover {
+  border-color: #2563eb;
+  background: #2563eb;
+}
+
+.filter-tabs__count {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.filter-tabs__tab--active .filter-tabs__count {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .filter-tabs__container {
+    justify-content: center;
+  }
+}

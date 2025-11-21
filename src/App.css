@@ -1,0 +1,46 @@
+/* Обновленный App.css */
+.app-header {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.app-header__content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.app-header__title {
+  margin: 0 0 20px 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  text-align: center;
+}
+
+.app-main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.technologies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 20px 16px;
+  }
+  
+  .app-header__title {
+    font-size: 1.5rem;
+  }
+  
+  .technologies-grid {
+    grid-template-columns: 1fr;
+  }
+}

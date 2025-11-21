@@ -1,0 +1,54 @@
+/* components/TechnologyNotes.css */
+.technology-notes {
+  margin: 16px 0;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.technology-notes:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.technology-notes__title {
+  margin: 0 0 8px 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.technology-notes__textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 80px;
+  transition: all 0.3s ease;
+}
+
+.technology-notes__textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.technology-notes__textarea::placeholder {
+  color: #9ca3af;
+}
+
+.technology-notes__hint {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-top: 8px;
+  transition: all 0.3s ease;
+}
+
+.technology-notes__hint--active {
+  color: #059669;
+  font-weight: 500;
+}
