@@ -1,0 +1,122 @@
+.technology-resources {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 20px;
+  border: 1px solid #e9ecef;
+}
+
+.resources-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.resources-header h4 {
+  margin: 0;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.resource-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-load-resources {
+  background-color: #536a4d;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.3s;
+}
+
+.btn-load-resources:hover:not(:disabled) {
+  background-color: #1976D2;
+}
+
+.btn-load-resources:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.btn-toggle-resources {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.3s;
+}
+
+.btn-toggle-resources:hover {
+  background-color: #545b62;
+}
+
+.resources-error {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+.resources-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.resource-item {
+  padding: 8px;
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  transition: transform 0.2s;
+}
+
+.resource-item:hover {
+  transform: translateX(4px);
+}
+
+.resource-link {
+  color: #2196F3;
+  text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  word-break: break-all;
+}
+
+.resource-link:hover {
+  text-decoration: underline;
+  color: #1976D2;
+}
+
+.no-resources {
+  color: #6c757d;
+  font-style: italic;
+  font-size: 14px;
+  text-align: center;
+  padding: 10px;
+}
+
+.resources-hint {
+  color: #6c757d;
+  font-size: 12px;
+  text-align: center;
+  padding: 8px;
+  background: white;
+  border-radius: 4px;
+  border: 1px dashed #ccc;
+}

@@ -1,0 +1,382 @@
+.statistics-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.statistics-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.header-content h1 {
+    margin: 0 0 8px 0;
+    color: #2c3e50;
+    font-size: 2rem;
+}
+
+.header-content p {
+    margin: 0;
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    background: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 2px solid #3498db;
+}
+
+.back-button:hover {
+    background: white;
+    color: #3498db;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+}
+
+/* Основная сетка */
+.statistics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+@media (max-width: 992px) {
+    .statistics-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Левая колонка */
+.left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Круговая диаграмма прогресса */
+.progress-circle-card {
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.circle-progress {
+    position: relative;
+    width: 160px;
+    height: 160px;
+}
+
+.progress-ring {
+    transform: rotate(-90deg);
+}
+
+.progress-ring-circle {
+    transition: stroke-dashoffset 1s ease;
+}
+
+.circle-progress-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.percentage {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.label {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.progress-details {
+    flex: 1;
+}
+
+.progress-details h3 {
+    margin: 0 0 16px 0;
+    color: #2c3e50;
+    font-size: 1.5rem;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    color: #7f8c8d;
+}
+
+.detail-value {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Карточка статусов */
+.status-card {
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.status-card h2 {
+    margin: 0 0 24px 0;
+    color: #2c3e50;
+    font-size: 1.5rem;
+}
+
+.status-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.status-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.status-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.status-dot.completed {
+    background: #4CAF50;
+}
+
+.status-dot.in-progress {
+    background: #FF9800;
+}
+
+.status-dot.not-started {
+    background: #F44336;
+}
+
+.status-count {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-left: auto;
+}
+
+/* Правая колонка */
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Карточки статистики */
+.stats-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.stat-card {
+    padding: 24px;
+    border-radius: 16px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card.blue {
+    background: linear-gradient(135deg, #2196F3, #21CBF3);
+}
+
+.stat-card.green {
+    background: linear-gradient(135deg, #4CAF50, #8BC34A);
+}
+
+.stat-card.orange {
+    background: linear-gradient(135deg, #FF9800, #FFB74D);
+}
+
+.stat-card.red {
+    background: linear-gradient(135deg, #F44336, #E57373);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    opacity: 0.9;
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Карточка категорий */
+.category-card {
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.category-card h2 {
+    margin: 0 0 24px 0;
+    color: #2c3e50;
+    font-size: 1.5rem;
+}
+
+.category-progress-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.category-progress-item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.category-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.category-icon.frontend {
+    background: #E3F2FD;
+    color: #2196F3;
+}
+
+.category-icon.backend {
+    background: #FFF3E0;
+    color: #FF9800;
+}
+
+.category-name {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.category-subtitle {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+.category-percentage {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .statistics-container {
+        padding: 16px;
+    }
+    
+    .statistics-header {
+        flex-direction: column;
+        gap: 20px;
+        align-items: stretch;
+    }
+    
+    .back-button {
+        align-self: flex-start;
+    }
+    
+    .progress-circle-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .stats-cards-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-content h1 {
+        font-size: 1.5rem;
+    }
+    
+    .stat-card {
+        padding: 20px;
+    }
+    
+    .stat-number {
+        font-size: 1.75rem;
+    }
+}

@@ -1,4 +1,3 @@
-// components/TechnologyNotes.jsx
 import './TechnologyNotes.css';
 
 const TechnologyNotes = ({ notes, onNotesChange, techId }) => {
@@ -18,7 +17,7 @@ const TechnologyNotes = ({ notes, onNotesChange, techId }) => {
       />
       <div className={`technology-notes__hint ${notes.length > 0 ? 'technology-notes__hint--active' : ''}`}>
         {notes.length > 0 ? (
-          <>📝 Заметка сохранена ({notes.length} символов)</>
+          <>Заметка сохранена ({notes.length} символов)</>
         ) : (
           '💡 Добавьте заметку для этой технологии'
         )}

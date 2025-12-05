@@ -1,0 +1,223 @@
+.edit-technology-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e1e5e9;
+}
+
+.page-header h1 {
+    color: #2c3e50;
+    margin: 0;
+    font-size: 2.2em;
+    font-weight: 700;
+    text-align: center;
+    flex: 1;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #3e9646;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1em;
+    padding: 10px 16px;
+    border: 2px solid #27ae60; 
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+.back-link:hover {
+    background-color: #1c4f18;
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3); 
+}
+
+.back-link:active {
+    transform: translateY(0);
+}
+/* Стили для состояния загрузки */
+.edit-technology-page .page-header h1 {
+    color: #7f8c8d;
+    font-style: italic;
+}
+
+/* Стили для сообщения об ошибке */
+.edit-technology-page .page-header p {
+    color: #e74c3c;
+    font-size: 1.1em;
+    margin: 10px 0;
+}
+
+/* Контейнер для формы */
+.edit-technology-page > .technology-form {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e1e5e9;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.edit-technology-page {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.page-header {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .edit-technology-page {
+        padding: 15px;
+    }
+
+    .page-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .page-header h1 {
+        font-size: 1.8em;
+        order: 2;
+    }
+
+    .back-link {
+        order: 1;
+        align-self: center;
+    }
+
+    .edit-technology-page > .technology-form {
+        padding: 20px 15px;
+        margin: 0 -15px;
+        border-radius: 0;
+        box-shadow: none;
+        border-left: none;
+        border-right: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header h1 {
+        font-size: 1.5em;
+    }
+
+    .back-link {
+        font-size: 0.9em;
+        padding: 8px 12px;
+    }
+
+    .edit-technology-page {
+        padding: 10px;
+    }
+}
+
+/* Дополнительные стили для улучшения UX */
+.edit-technology-page .btn {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.edit-technology-page .btn-primary {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+}
+
+.edit-technology-page .btn-primary:hover {
+    background: linear-gradient(135deg, #2980b9, #2471a3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+/* Стили для пустого состояния */
+.edit-technology-page .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #7f8c8d;
+}
+
+.edit-technology-page .empty-state h1 {
+    color: #e74c3c;
+    margin-bottom: 15px;
+}
+
+.edit-technology-page .empty-state p {
+    font-size: 1.1em;
+    margin-bottom: 25px;
+}
+
+/* Индикатор загрузки */
+.edit-technology-page .loading-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+.edit-technology-page .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.edit-technology-page .loading-text {
+    color: #7f8c8d;
+    font-size: 1.1em;
+    font-style: italic;
+}
+
+.edit-technology-page .technology-form {
+    position: relative;
+}
+
+.edit-technology-page .technology-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #3498db, #9b59b6, #e74c3c);
+    border-radius: 12px 12px 0 0;
+}

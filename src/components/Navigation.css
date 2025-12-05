@@ -1,0 +1,136 @@
+/* Базовые стили для навигации */
+.MuiAppBar-root {
+    background-color: #000000 !important;
+    backdrop-filter: blur(10px) !important;
+    transition: all 0.3s ease !important;
+}
+
+/* Анимация для иконок навигации */
+@keyframes navItemHover {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-2px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.MuiIconButton-root:hover {
+    animation: navItemHover 0.3s ease;
+}
+
+/* Стили для активного состояния в мобильном меню */
+.MuiListItem-root.Mui-selected {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    border-left: 3px solid #ffffff !important;
+}
+
+/* Эффект градиентного свечения для переключателя темы */
+.MuiSwitch-root {
+    position: relative;
+}
+
+.MuiSwitch-root:before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #fff, #aaa, #fff);
+    border-radius: 20px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.MuiSwitch-root:hover:before {
+    opacity: 0.3;
+}
+
+/* Стили для Drawer */
+.MuiDrawer-paper {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Анимация появления пунктов меню в Drawer */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.MuiListItem-root {
+    animation: slideIn 0.3s ease forwards;
+    opacity: 0;
+}
+
+.MuiListItem-root:nth-child(1) { animation-delay: 0.1s; }
+.MuiListItem-root:nth-child(2) { animation-delay: 0.2s; }
+.MuiListItem-root:nth-child(3) { animation-delay: 0.3s; }
+.MuiListItem-root:nth-child(4) { animation-delay: 0.4s; }
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+    .MuiToolbar-root {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+    
+    .MuiTypography-h6 {
+        font-size: 1.3rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .MuiToolbar-root {
+        min-height: 64px !important;
+    }
+}
+
+/* Стили для иконок навигации на десктопе */
+.nav-icon-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-icon-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: #ffffff;
+    transition: width 0.3s ease;
+}
+
+.nav-icon-wrapper:hover::after {
+    width: 70%;
+}
+
+/* Стили для состояния активной навигации */
+.nav-item-active {
+    position: relative;
+}
+
+.nav-item-active::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -8px;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    background-color: #ffffff;
+    border-radius: 50%;
+}

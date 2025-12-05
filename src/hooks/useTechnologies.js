@@ -1,141 +1,138 @@
-// hooks/useTechnologies.js
-import { useMemo } from 'react';
-import useLocalStorage from './useLocalStorage';
-
-// Начальные данные для технологий
-const initialTechnologies = [
-  {
-    id: 1,
-    title: 'React Components',
-    description: 'Изучение функциональных и классовых компонентов, их жизненного цикла и методов',
-    status: 'completed',
-    notes: '✅ Изучил основы компонентов. Нужно практиковаться с HOC.',
-    category: 'frontend'
-  },
-  {
-    id: 2,
-    title: 'JSX Syntax',
-    description: 'Освоение синтаксиса JSX, работа с выражениями и условным рендерингом',
-    status: 'in-progress',
-    notes: '🔄 Разбираюсь с условным рендерингом. Интересная тема!',
-    category: 'frontend'
-  },
-  {
-    id: 3,
-    title: 'State Management',
-    description: 'Работа с состоянием компонентов, использование useState и useEffect хуков',
-    status: 'not-started',
-    notes: '',
-    category: 'frontend'
-  },
-  {
-    id: 4,
-    title: 'Node.js Basics',
-    description: 'Основы серверного JavaScript, работа с модулями и файловой системой',
-    status: 'not-started',
-    notes: '',
-    category: 'backend'
-  },
-  {
-    id: 5,
-    title: 'Express.js Framework',
-    description: 'Создание REST API с помощью Express.js, middleware и роутинг',
-    status: 'not-started',
-    notes: '',
-    category: 'backend'
-  },
-  {
-    id: 6,
-    title: 'Database Integration',
-    description: 'Работа с базами данных, подключение MongoDB или PostgreSQL',
-    status: 'not-started',
-    notes: '',
-    category: 'backend'
-  }
-];
+import { useState, useEffect } from 'react';
 
 function useTechnologies() {
-  const [technologies, setTechnologies] = useLocalStorage('technologies', initialTechnologies);
-
-  // Функция для обновления статуса технологии
-  const updateStatus = (techId, newStatus) => {
-    setTechnologies(prev =>
-      prev.map(tech =>
-        tech.id === techId ? { ...tech, status: newStatus } : tech
-      )
-    );
-  };
-
-  // Функция для обновления заметок
-  const updateNotes = (techId, newNotes) => {
-    setTechnologies(prev =>
-      prev.map(tech =>
-        tech.id === techId ? { ...tech, notes: newNotes } : tech
-      )
-    );
-  };
-
-  // Функция для расчета общего прогресса
-  const calculateProgress = () => {
-    if (technologies.length === 0) return 0;
-    const completed = technologies.filter(tech => tech.status === 'completed').length;
-    return Math.round((completed / technologies.length) * 100);
-  };
-
-  // Функция для отметки всех как выполненных
-  const markAllCompleted = () => {
-    setTechnologies(prev =>
-      prev.map(tech => ({ ...tech, status: 'completed' }))
-    );
-  };
-
-  // Функция для сброса всех статусов
-  const resetAllStatuses = () => {
-    setTechnologies(prev =>
-      prev.map(tech => ({ ...tech, status: 'not-started' }))
-    );
-  };
-
-  // Функция для экспорта данных
-  const exportData = () => {
-    const data = {
-      exportedAt: new Date().toISOString(),
-      version: '1.0',
-      technologies: technologies
-    };
-    return JSON.stringify(data, null, 2);
-  };
-
-  // Функция для получения статистики по категориям
-  const getCategoryStats = () => {
-    const categories = {};
-    technologies.forEach(tech => {
-      if (!categories[tech.category]) {
-        categories[tech.category] = { total: 0, completed: 0 };
-      }
-      categories[tech.category].total++;
-      if (tech.status === 'completed') {
-        categories[tech.category].completed++;
-      }
+    const [technologies, setTechnologies] = useState(() => {
+        const saved = localStorage.getItem('technologies');
+        return saved ? JSON.parse(saved) : [];
     });
-    return categories;
-  };
 
-  // Мемоизированные значения для оптимизации
-  const progress = useMemo(() => calculateProgress(), [technologies]);
-  const categoryStats = useMemo(() => getCategoryStats(), [technologies]);
+    useEffect(() => {
+        const handleStorageChange = (event) => {
+            if (event.key === 'technologies') {
+                const saved = localStorage.getItem('technologies');
+                if (saved) {
+                    requestAnimationFrame(() => {
+                        setTechnologies(JSON.parse(saved));
+                    });
+                }
+            }
+        };
 
-  return {
-    technologies,
-    setTechnologies,
-    updateStatus,
-    updateNotes,
-    markAllCompleted,
-    resetAllStatuses,
-    exportData,
-    progress,
-    categoryStats
-  };
+        const handleCustomEvent = () => {
+            const saved = localStorage.getItem('technologies');
+            if (saved) {
+                requestAnimationFrame(() => {
+                    setTechnologies(JSON.parse(saved));
+                });
+            }
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+        window.addEventListener('technologiesUpdated', handleCustomEvent);
+
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+            window.removeEventListener('technologiesUpdated', handleCustomEvent);
+        };
+    }, []);
+
+    const updateStatus = (id, newStatus) => {
+        const updated = technologies.map(tech =>
+            tech.id === id ? { ...tech, status: newStatus } : tech
+        );
+        setTechnologies(updated);
+        localStorage.setItem('technologies', JSON.stringify(updated));
+        window.dispatchEvent(new Event('technologiesUpdated'));
+    };
+
+    const updateNotes = (id, newNotes) => {
+        const updated = technologies.map(tech =>
+            tech.id === id ? { ...tech, notes: newNotes } : tech
+        );
+        setTechnologies(updated);
+        localStorage.setItem('technologies', JSON.stringify(updated));
+        window.dispatchEvent(new Event('technologiesUpdated'));
+    };
+
+    const updateTechnologyResources = (id, newResources) => {
+        const updated = technologies.map(tech =>
+            tech.id === id ? { ...tech, resources: newResources } : tech
+        );
+        setTechnologies(updated);
+        localStorage.setItem('technologies', JSON.stringify(updated));
+        window.dispatchEvent(new Event('technologiesUpdated'));
+    };
+
+    const addTechnology = (techData) => {
+        const newTechnology = {
+            ...techData,
+            id: Date.now(),
+            status: techData.status || 'not-started',
+            notes: techData.notes || '',
+            resources: techData.resources || [],
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+
+        const updated = [...technologies, newTechnology];
+        setTechnologies(updated);
+        localStorage.setItem('technologies', JSON.stringify(updated));
+        window.dispatchEvent(new Event('technologiesUpdated'));
+        
+        return newTechnology;
+    };
+
+    const updateTechnology = (id, updatedTech) => {
+        const updated = technologies.map(tech =>
+            tech.id === id ? { ...tech, ...updatedTech, updatedAt: new Date().toISOString() } : tech
+        );
+        setTechnologies(updated);
+        localStorage.setItem('technologies', JSON.stringify(updated));
+        window.dispatchEvent(new Event('technologiesUpdated'));
+    };
+
+    const deleteTechnology = (id) => {
+        const updated = technologies.filter(tech => tech.id !== id);
+        setTechnologies(updated);
+        localStorage.setItem('technologies', JSON.stringify(updated));
+        window.dispatchEvent(new Event('technologiesUpdated'));
+    };
+
+    const bulkUpdateStatus = (ids, newStatus) => {
+        const updated = technologies.map(tech =>
+            ids.includes(tech.id) ? { ...tech, status: newStatus } : tech
+        );
+        setTechnologies(updated);
+        localStorage.setItem('technologies', JSON.stringify(updated));
+        window.dispatchEvent(new Event('technologiesUpdated'));
+    };
+
+    const markAllAsCompleted = () => {
+        const updated = technologies.map(tech => ({ ...tech, status: 'completed' }));
+        setTechnologies(updated);
+        localStorage.setItem('technologies', JSON.stringify(updated));
+        window.dispatchEvent(new Event('technologiesUpdated'));
+    };
+
+    const resetAllStatuses = () => {
+        const updated = technologies.map(tech => ({ ...tech, status: 'not-started' }));
+        setTechnologies(updated);
+        localStorage.setItem('technologies', JSON.stringify(updated));
+        window.dispatchEvent(new Event('technologiesUpdated'));
+    };
+
+    return {
+        technologies,
+        updateStatus,
+        updateNotes,
+        updateTechnologyResources,
+        addTechnology,
+        updateTechnology,
+        deleteTechnology,
+        bulkUpdateStatus,
+        markAllAsCompleted,
+        resetAllStatuses
+    };
 }
 
 export default useTechnologies;

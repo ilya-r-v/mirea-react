@@ -1,0 +1,227 @@
+/* Все общие стили feature-card уже в TechnologySearch.css */
+
+.roadmap-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.select-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.select-label {
+    font-size: 0.95em;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.custom-select {
+    position: relative;
+    width: 100%;
+}
+
+.roadmap-select {
+    width: 100%;
+    padding: 14px 52px 14px 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 1em;
+    font-family: inherit;
+    appearance: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.roadmap-select:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.roadmap-select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.select-arrow {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+}
+
+/* Button Styles */
+.feature-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 16px 24px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 1em;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent 30%, rgba(255, 255, 255, 0.05) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.feature-button:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.feature-button:hover:not(:disabled)::before {
+    opacity: 1;
+}
+
+.feature-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.import-button {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.import-button:hover:not(:disabled) {
+    background: rgba(59, 130, 246, 0.3);
+    border-color: rgba(59, 130, 246, 0.4);
+}
+
+.button-icon {
+    flex-shrink: 0;
+}
+
+.button-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-top: 2px solid #ffffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Roadmap Info */
+.roadmap-info {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.roadmap-info h4 {
+    margin: 0 0 16px 0;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.roadmap-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.roadmap-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
+}
+
+.roadmap-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.roadmap-badge {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85em;
+    flex-shrink: 0;
+}
+
+.roadmap-badge.frontend {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.roadmap-badge.backend {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.roadmap-badge.fullstack {
+    background: rgba(139, 92, 246, 0.2);
+    color: #a78bfa;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.roadmap-content {
+    flex: 1;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.roadmap-content strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    .roadmap-controls {
+        flex-direction: row;
+        align-items: flex-end;
+    }
+    
+    .select-group {
+        flex: 1;
+    }
+    
+    .feature-button {
+        width: auto;
+        min-width: 240px;
+    }
+}

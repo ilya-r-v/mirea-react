@@ -1,68 +1,109 @@
-/* components/ProgressBar.css */
-.progress-bar-wrapper {
-  width: 100%;
+.progress-bar-container {
+    margin: 20px 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .progress-bar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 0 5px;
 }
 
-.progress-bar-label {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #374151;
+.progress-label {
+    font-size: 0.95em;
+    font-weight: 600;
+    color: #1e293b;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    font-size: 0.85em;
+    opacity: 0.9;
 }
 
-.progress-bar-percentage {
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: #1f2937;
+.progress-percentage {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #10b981;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    padding: 6px 14px;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e2e8f0;
 }
 
-.progress-bar-container {
-  width: 100%;
-  background: #e5e7eb;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+.progress-bar-outer {
+    background: rgba(241, 245, 249, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.05),
+        0 1px 0 rgba(255, 255, 255, 0.8);
+    padding: 4px;
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    position: relative;
 }
 
-.progress-bar-fill {
-  height: 100%;
-  border-radius: 10px;
-  transition: width 0.5s ease-in-out;
-  position: relative;
+.progress-bar-outer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%);
+    border-radius: 14px;
+    pointer-events: none;
 }
 
-.progress-bar-fill--animated::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-image: linear-gradient(
-    -45deg,
-    rgba(255, 255, 255, 0.2) 25%,
-    transparent 25%,
-    transparent 50%,
-    rgba(255, 255, 255, 0.2) 50%,
-    rgba(255, 255, 255, 0.2) 75%,
-    transparent 75%,
-    transparent
-  );
-  background-size: 20px 20px;
-  animation: progressStripes 1s linear infinite;
+.progress-bar-inner {
+    border-radius: 12px;
+    transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    height: 24px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(90deg, 
+        var(--progress-color, #3b82f6) 0%,
+        var(--progress-color-light, #60a5fa) 50%,
+        var(--progress-color, #3b82f6) 100%);
+    background-size: 200% 100%;
+    animation: gradient-shift 3s ease infinite;
+    box-shadow: 
+        0 2px 8px rgba(59, 130, 246, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
-@keyframes progressStripes {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 20px 0;
-  }
+.progress-bar-inner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.4) 50%, 
+        transparent 100%);
+    animation: shine 2s ease-in-out infinite;
+    border-radius: 12px;
+}
+
+@keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.progress-bar-inner.completed {
+    background: linear-gradient(90deg, #10b981 0%, #34d399 50%, #10b981 100%);
+    box-shadow: 0 2px 12px rgba(16, 185, 129, 0.4);
+}
+
+.progress-bar-inner.low {
+    background: linear-gradient(90deg, #ef4444 0%, #f87171 50%, #ef4444 100%);
 }

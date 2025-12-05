@@ -1,0 +1,80 @@
+.technology-detail__content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.detail-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+}
+
+.detail-section {
+  margin-bottom: 24px;
+}
+
+.detail-section h3 {
+  margin: 0 0 12px 0;
+  color: #374151;
+  font-size: 1.125rem;
+}
+
+.detail-section p {
+  margin: 0;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.category-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #e5e7eb;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.status-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.status-btn {
+  padding: 8px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.status-btn.active {
+  border-color: #3b82f6;
+  background: #3b82f6;
+  color: white;
+}
+
+.notes-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.notes-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
