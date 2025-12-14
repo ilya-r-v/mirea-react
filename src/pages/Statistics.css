@@ -2,6 +2,8 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 24px;
+    background: var(--bg-gradient-start);
+    min-height: calc(100vh - 64px);
 }
 
 .statistics-header {
@@ -10,18 +12,18 @@
     align-items: flex-start;
     margin-bottom: 40px;
     padding-bottom: 24px;
-    border-bottom: 2px solid #f0f0f0;
+    border-bottom: 2px solid var(--border-color);
 }
 
 .header-content h1 {
     margin: 0 0 8px 0;
-    color: #2c3e50;
+    color: var(--text-primary);
     font-size: 2rem;
 }
 
 .header-content p {
     margin: 0;
-    color: #7f8c8d;
+    color: var(--text-muted);
     font-size: 1.1rem;
 }
 
@@ -29,20 +31,20 @@
     display: inline-flex;
     align-items: center;
     padding: 12px 24px;
-    background: #3498db;
+    background: var(--status-in-progress);
     color: white;
     text-decoration: none;
     border-radius: 8px;
     font-weight: 500;
     transition: all 0.3s ease;
-    border: 2px solid #3498db;
+    border: 2px solid var(--status-in-progress);
 }
 
 .back-button:hover {
-    background: white;
-    color: #3498db;
+    background: var(--button-hover-bg);
+    color: var(--text-primary);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+    box-shadow: 0 4px 12px var(--shadow-color);
 }
 
 /* Основная сетка */
@@ -67,10 +69,11 @@
 
 /* Круговая диаграмма прогресса */
 .progress-circle-card {
-    background: white;
+    background: var(--card-bg);
     padding: 32px;
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--card-border);
     display: flex;
     align-items: center;
     gap: 32px;
@@ -102,12 +105,12 @@
     display: block;
     font-size: 2.5rem;
     font-weight: 700;
-    color: #2c3e50;
+    color: var(--text-primary);
 }
 
 .label {
     font-size: 0.9rem;
-    color: #7f8c8d;
+    color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 1px;
 }
@@ -118,7 +121,7 @@
 
 .progress-details h3 {
     margin: 0 0 16px 0;
-    color: #2c3e50;
+    color: var(--text-primary);
     font-size: 1.5rem;
 }
 
@@ -127,7 +130,7 @@
     justify-content: space-between;
     margin-top: 16px;
     padding: 8px 0;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .detail-item:last-child {
@@ -135,25 +138,26 @@
 }
 
 .detail-label {
-    color: #7f8c8d;
+    color: var(--text-muted);
 }
 
 .detail-value {
     font-weight: 600;
-    color: #2c3e50;
+    color: var(--text-primary);
 }
 
 /* Карточка статусов */
 .status-card {
-    background: white;
+    background: var(--card-bg);
     padding: 32px;
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--card-border);
 }
 
 .status-card h2 {
     margin: 0 0 24px 0;
-    color: #2c3e50;
+    color: var(--text-primary);
     font-size: 1.5rem;
 }
 
@@ -182,20 +186,20 @@
 }
 
 .status-dot.completed {
-    background: #4CAF50;
+    background: var(--status-completed);
 }
 
 .status-dot.in-progress {
-    background: #FF9800;
+    background: var(--status-in-progress);
 }
 
 .status-dot.not-started {
-    background: #F44336;
+    background: var(--status-not-started);
 }
 
 .status-count {
     font-weight: 600;
-    color: #2c3e50;
+    color: var(--text-primary);
     margin-left: auto;
 }
 
@@ -221,11 +225,12 @@
     align-items: center;
     gap: 16px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--card-border);
 }
 
 .stat-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 25px var(--shadow-hover);
 }
 
 .stat-card.blue {
@@ -269,15 +274,16 @@
 
 /* Карточка категорий */
 .category-card {
-    background: white;
+    background: var(--card-bg);
     padding: 32px;
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--card-border);
 }
 
 .category-card h2 {
     margin: 0 0 24px 0;
-    color: #2c3e50;
+    color: var(--text-primary);
     font-size: 1.5rem;
 }
 
@@ -316,29 +322,31 @@
 }
 
 .category-icon.frontend {
-    background: #E3F2FD;
-    color: #2196F3;
+    background: var(--category-frontend);
+    opacity: 0.2;
+    color: var(--category-frontend);
 }
 
 .category-icon.backend {
-    background: #FFF3E0;
-    color: #FF9800;
+    background: var(--category-backend);
+    opacity: 0.2;
+    color: var(--category-backend);
 }
 
 .category-name {
     font-weight: 600;
-    color: #2c3e50;
+    color: var(--text-primary);
 }
 
 .category-subtitle {
     font-size: 0.9rem;
-    color: #7f8c8d;
+    color: var(--text-muted);
 }
 
 .category-percentage {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #2c3e50;
+    color: var(--text-primary);
 }
 
 /* Адаптивность */

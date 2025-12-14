@@ -1,40 +1,44 @@
 .quick-actions-container {
-    background: #000000;
+    background: #0f0f0f;
     color: #ffffff;
-    padding: 32px;
-    border-radius: 24px;
-    margin-bottom: 32px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 36px;
+    border-radius: 20px;
+    margin-bottom: 36px;
+    border: 1px solid #2a2a2a;
     box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        0 4px 24px rgba(0, 0, 0, 0.25),
+        0 1px 0 rgba(255, 255, 255, 0.03);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    position: relative;
 }
 
 .quick-actions-header {
-    margin-bottom: 32px;
+    margin-bottom: 36px;
     text-align: center;
 }
 
 .quick-actions-header h3 {
-    margin: 0 0 8px 0;
+    margin: 0 0 12px 0;
     font-size: 1.8em;
     font-weight: 700;
     color: #ffffff;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.3px;
 }
 
 .quick-actions-subtitle {
     margin: 0;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.95em;
+    color: #a0a0a0;
+    font-size: 1em;
     font-weight: 400;
+    line-height: 1.5;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .quick-actions-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 20px;
 }
 
 @media (min-width: 768px) {
@@ -43,22 +47,22 @@
     }
 }
 
-.actions-group {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+@media (min-width: 1200px) {
+    .quick-actions-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 .action-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
     border-radius: 16px;
-    padding: 20px;
+    padding: 24px;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: flex-start;
-    gap: 16px;
+    gap: 20px;
     position: relative;
     overflow: hidden;
 }
@@ -70,40 +74,48 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, transparent 30%, rgba(255, 255, 255, 0.03) 100%);
+    background: rgba(255, 255, 255, 0.02);
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.25s ease;
 }
 
 .action-card:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.15);
-    transform: translateY(-2px);
+    background: #222222;
+    border-color: #3a3a3a;
+    transform: translateY(-3px);
     box-shadow: 
-        0 10px 30px rgba(0, 0, 0, 0.4),
-        0 4px 12px rgba(255, 255, 255, 0.05);
+        0 12px 32px rgba(0, 0, 0, 0.3),
+        0 2px 8px rgba(255, 255, 255, 0.02);
 }
 
 .action-card:hover::before {
     opacity: 1;
 }
 
+.action-card:active {
+    transform: translateY(-1px);
+    transition: transform 0.1s ease;
+}
+
 .action-icon {
     font-size: 1.5em;
-    background: rgba(255, 255, 255, 0.1);
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
+    background: #252525;
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
+    color: #ffffff;
+    border: 1px solid #333333;
 }
 
 .action-card:hover .action-icon {
-    background: rgba(255, 255, 255, 0.15);
-    transform: scale(1.1);
+    background: #2d2d2d;
+    border-color: #444444;
+    transform: translateY(-2px);
 }
 
 .action-content {
@@ -111,66 +123,296 @@
 }
 
 .action-content h4 {
-    margin: 0 0 6px 0;
-    font-size: 1.1em;
+    margin: 0 0 8px 0;
+    font-size: 1.15em;
     font-weight: 600;
-    color: black;
+    color: #ffffff;
+    line-height: 1.3;
 }
 
 .action-content p {
     margin: 0;
     font-size: 0.9em;
-    color: rgba(255, 255, 255, 0.6);
-    line-height: 1.4;
+    color: #a0a0a0;
+    line-height: 1.5;
 }
 
-/* Стили для модального окна экспорта */
+/* Индикатор выбора при наведении */
+.action-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 24px;
+    right: 24px;
+    height: 2px;
+    background: #4a4a4a;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.action-card:hover::after {
+    opacity: 1;
+}
+
+/* Цветные акценты для разных типов действий */
+.action-card[data-type="add"] .action-icon {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+}
+
+.action-card[data-type="add"]:hover .action-icon {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.action-card[data-type="import"] .action-icon {
+    background: rgba(34, 197, 94, 0.1);
+    border-color: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+}
+
+.action-card[data-type="import"]:hover .action-icon {
+    background: rgba(34, 197, 94, 0.15);
+    border-color: rgba(34, 197, 94, 0.3);
+}
+
+.action-card[data-type="export"] .action-icon {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: rgba(245, 158, 11, 0.2);
+    color: #f59e0b;
+}
+
+.action-card[data-type="export"]:hover .action-icon {
+    background: rgba(245, 158, 11, 0.15);
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.action-card[data-type="filters"] .action-icon {
+    background: rgba(168, 85, 247, 0.1);
+    border-color: rgba(168, 85, 247, 0.2);
+    color: #a855f7;
+}
+
+.action-card[data-type="filters"]:hover .action-icon {
+    background: rgba(168, 85, 247, 0.15);
+    border-color: rgba(168, 85, 247, 0.3);
+}
+
+.action-card[data-type="matrix"] .action-icon {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+.action-card[data-type="matrix"]:hover .action-icon {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.action-card[data-type="list"] .action-icon {
+    background: rgba(6, 182, 212, 0.1);
+    border-color: rgba(6, 182, 212, 0.2);
+    color: #06b6d4;
+}
+
+.action-card[data-type="list"]:hover .action-icon {
+    background: rgba(6, 182, 212, 0.15);
+    border-color: rgba(6, 182, 212, 0.3);
+}
+
+/* Стили для модального окна экспорта (темная тема) */
 .modal-content {
     text-align: center;
-    padding: 20px;
+    padding: 32px;
+    background: #0f0f0f;
+    border-radius: 16px;
+    border: 1px solid #2a2a2a;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .modal-icon {
-    font-size: 3em;
-    color: #4caf50;
-    margin-bottom: 16px;
-    animation: fadeIn 0.5s ease;
+    font-size: 3.5em;
+    margin-bottom: 24px;
+    display: inline-block;
+    animation: subtleFloat 3s ease-in-out infinite;
+}
+
+@keyframes subtleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.modal-icon.success {
+    color: #22c55e;
+}
+
+.modal-icon.warning {
+    color: #f59e0b;
+}
+
+.modal-icon.error {
+    color: #ef4444;
 }
 
 .modal-content h4 {
-    margin: 0 0 12px 0;
+    margin: 0 0 16px 0;
     color: #ffffff;
     font-weight: 600;
+    font-size: 1.4em;
 }
 
 .modal-content p {
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 24px;
+    color: #a0a0a0;
+    margin-bottom: 28px;
+    font-size: 1em;
+    line-height: 1.5;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .modal-button {
-    background: rgba(255, 255, 255, 0.1);
+    background: #2a2a2a;
     color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 10px 24px;
-    border-radius: 8px;
-    font-size: 0.95em;
+    border: 1px solid #3a3a3a;
+    padding: 14px 32px;
+    border-radius: 12px;
+    font-size: 1em;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 120px;
+    transition: all 0.25s ease;
+    min-width: 140px;
+    display: inline-block;
 }
 
 .modal-button:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.3);
+    background: #3a3a3a;
+    border-color: #4a4a4a;
+    transform: translateY(-2px);
 }
 
-/* Анимации */
-@keyframes fadeIn {
+/* Адаптивность */
+@media (max-width: 768px) {
+    .quick-actions-container {
+        padding: 28px;
+        margin-bottom: 28px;
+        border-radius: 18px;
+    }
+    
+    .quick-actions-header {
+        margin-bottom: 28px;
+    }
+    
+    .quick-actions-header h3 {
+        font-size: 1.6em;
+    }
+    
+    .quick-actions-subtitle {
+        font-size: 0.95em;
+    }
+    
+    .action-card {
+        padding: 20px;
+    }
+    
+    .action-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.3em;
+    }
+    
+    .modal-content {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .quick-actions-container {
+        padding: 24px;
+        margin-bottom: 24px;
+        border-radius: 16px;
+    }
+    
+    .quick-actions-header h3 {
+        font-size: 1.4em;
+    }
+    
+    .quick-actions-subtitle {
+        font-size: 0.9em;
+    }
+    
+    .quick-actions-grid {
+        gap: 16px;
+    }
+    
+    .action-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+        padding: 20px;
+    }
+    
+    .action-icon {
+        width: 52px;
+        height: 52px;
+        align-self: center;
+    }
+    
+    .action-card::after {
+        left: 20px;
+        right: 20px;
+    }
+    
+    .modal-content {
+        padding: 20px;
+    }
+    
+    .modal-button {
+        padding: 12px 24px;
+        min-width: 120px;
+        font-size: 0.95em;
+    }
+}
+
+/* Улучшенная доступность */
+.action-card:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+.action-card:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.modal-button:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+.modal-button:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Состояние отключенной карточки */
+.action-card.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.action-card.disabled:hover {
+    transform: none;
+    background: #1a1a1a;
+    border-color: #2a2a2a;
+    box-shadow: none;
+}
+
+/* Плавное появление карточек */
+@keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(-10px);
+        transform: translateY(10px);
     }
     to {
         opacity: 1;
@@ -178,43 +420,41 @@
     }
 }
 
-/* Адаптивность */
-@media (max-width: 768px) {
-    .quick-actions-container {
-        padding: 24px;
-        margin-bottom: 24px;
-    }
-    
-    .quick-actions-header h3 {
-        font-size: 1.5em;
-    }
-    
-    .action-card {
-        padding: 16px;
-    }
-    
-    .action-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 1.3em;
-    }
+.action-card {
+    animation: fadeInUp 0.4s ease-out;
+    animation-fill-mode: both;
 }
 
-@media (max-width: 480px) {
-    .quick-actions-container {
-        padding: 20px;
-    }
-    
-    .quick-actions-grid {
-        gap: 12px;
-    }
-    
-    .action-card {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .action-icon {
-        align-self: center;
-    }
+.action-card:nth-child(1) { animation-delay: 0.05s; }
+.action-card:nth-child(2) { animation-delay: 0.1s; }
+.action-card:nth-child(3) { animation-delay: 0.15s; }
+.action-card:nth-child(4) { animation-delay: 0.2s; }
+.action-card:nth-child(5) { animation-delay: 0.25s; }
+.action-card:nth-child(6) { animation-delay: 0.3s; }
+
+/* Минимальный эффект нагрузки */
+.action-card.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.action-card.loading::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.05),
+        transparent
+    );
+    animation: loadingShimmer 1.5s infinite;
+}
+
+@keyframes loadingShimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
 }

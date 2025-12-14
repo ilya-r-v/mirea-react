@@ -54,14 +54,12 @@
     font-style: italic;
 }
 
-/* Стили для сообщения об ошибке */
 .edit-technology-page .page-header p {
     color: #e74c3c;
     font-size: 1.1em;
     margin: 10px 0;
 }
 
-/* Контейнер для формы */
 .edit-technology-page > .technology-form {
     background: white;
     border-radius: 12px;

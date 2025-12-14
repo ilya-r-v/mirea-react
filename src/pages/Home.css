@@ -3,6 +3,11 @@
   gap: 16px;
   margin-bottom: 20px;
   flex-wrap: wrap;
+  background: var(--card-bg);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
 }
 
 .home-actions .roadmap-importer {
@@ -20,14 +25,14 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: #f8fafc;
+  background: var(--bg-gradient-start);
 }
 
 .spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid #e5e7eb;
-  border-top: 4px solid #3b82f6;
+  border: 4px solid var(--border-color);
+  border-top: 4px solid var(--status-in-progress);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 16px;
@@ -39,7 +44,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,24 +54,25 @@
 .loading-spinner {
   width: 50px;
   height: 50px;
-  border: 5px solid #e5e7eb;
-  border-top: 5px solid #3b82f6;
+  border: 5px solid var(--border-color);
+  border-top: 5px solid var(--status-in-progress);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
 
 .app-error {
-  background: #fef2f2;
-  border: 1px solid #fecaca;
+  background: var(--card-bg);
+  border: 1px solid var(--error-color);
   border-radius: 8px;
   padding: 16px;
   margin-bottom: 20px;
   text-align: center;
+  color: var(--text-primary);
 }
 
 .app-error p {
   margin: 0 0 12px 0;
-  color: #dc2626;
+  color: var(--error-color);
 }
 
 @keyframes spin {

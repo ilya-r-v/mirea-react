@@ -38,9 +38,9 @@ function AddTechnology() {
   return (
     <div className="page add-technology">
       <div className="page-header">
-        <Link to="/technologies" className="back-link">
+        {/* <Link to="/technologies" className="back-link">
           ← Назад к списку
-        </Link>
+        </Link> */}
         <h1>Добавить технологию</h1>
       </div>
 

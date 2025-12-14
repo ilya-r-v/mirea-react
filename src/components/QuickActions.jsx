@@ -9,7 +9,7 @@ function QuickActions({
     resetAllStatuses, 
     randomizeNextTechnology, 
     technologies,
-    onBulkUpdate 
+    onBulkUpdate  // Принимаем функцию массового обновления
 }) {
     const [showExportModal, setShowExportModal] = useState(false);
     const [showBulkEditModal, setShowBulkEditModal] = useState(false);
@@ -36,6 +36,7 @@ function QuickActions({
     };
 
     const handleBulkUpdate = (ids, newStatus) => {
+        console.log('QuickActions: Bulk updating', ids, 'to status:', newStatus);
         if (onBulkUpdate) {
             onBulkUpdate(ids, newStatus);
         }

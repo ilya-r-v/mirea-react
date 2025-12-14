@@ -60,7 +60,7 @@ const simulateApiCall = (data, delay = 1000) =>
     }, delay);
   });
 
-function useTechnologiesApi() {
+function useTechnologyApi() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -84,7 +84,7 @@ function useTechnologiesApi() {
     setLoading(true);
     setError(null);
     try {
-      await simulateApiCall(null, 300); // Имитация задержки поиска
+      await simulateApiCall(null, 300);
       
       if (!query.trim()) {
         return mockTechnologies;
@@ -105,7 +105,6 @@ function useTechnologiesApi() {
     }
   }, []);
 
-  // Загрузка дополнительных ресурсов для технологии
   const fetchTechnologyResources = useCallback(async (techId) => {
     setLoading(true);
     setError(null);
@@ -123,7 +122,7 @@ function useTechnologiesApi() {
     } finally {
       setLoading(false);
     }
-  }, []);
+}, []);
 
   // Загрузка дорожной карты
   const fetchRoadmap = useCallback(async (roadmapType = 'frontend') => {
@@ -146,14 +145,54 @@ function useTechnologiesApi() {
     }
   }, []);
 
+  // Рекомендации технологий на основе истории пользователя
+  const getRecommendations = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      // В реальном API здесь был бы анализ истории пользователя
+      // Пока возвращаем случайные технологии
+      const shuffled = [...mockTechnologies].sort(() => 0.5 - Math.random());
+      const recommendations = shuffled.slice(0, 3);
+      await simulateApiCall(null, 800);
+      return recommendations;
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  // Получение популярных технологий
+  const getPopularTechnologies = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      // В реальном API здесь была бы статистика популярности
+      const popular = [...mockTechnologies]
+        .sort((a, b) => b.id - a.id)
+        .slice(0, 5);
+      await simulateApiCall(null, 600);
+      return popular;
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   return {
     loading,
     error,
     fetchTechnologies,
     searchTechnologies,
     fetchTechnologyResources,
-    fetchRoadmap
+    fetchRoadmap,
+    getRecommendations,
+    getPopularTechnologies
   };
 }
 
-export default useTechnologiesApi;
+export default useTechnologyApi;

@@ -1,3 +1,99 @@
+:root {
+  --roadmap-bg: #ffffff;
+  --roadmap-text: #1a1a1a;
+  --roadmap-text-secondary: #4a5568;
+  --roadmap-text-tertiary: #718096;
+  --roadmap-border: #e2e8f0;
+  --roadmap-border-light: #edf2f7;
+  --roadmap-hover-bg: #f7fafc;
+  --roadmap-card-bg: #f8fafc;
+  --roadmap-shadow: rgba(0, 0, 0, 0.1);
+  --roadmap-shadow-hover: rgba(0, 0, 0, 0.15);
+  
+  --button-bg: #edf2f7;
+  --button-border: #e2e8f0;
+  --button-hover-bg: #e2e8f0;
+  --button-text: #2d3748;
+  --button-disabled: #a0aec0;
+  
+  --import-button-bg: rgba(66, 153, 225, 0.1);
+  --import-button-border: rgba(66, 153, 225, 0.2);
+  --import-button-hover-bg: rgba(66, 153, 225, 0.15);
+  --import-button-text: #2c5282;
+  
+  --badge-frontend-bg: rgba(66, 153, 225, 0.1);
+  --badge-frontend-text: #2c5282;
+  --badge-frontend-border: rgba(66, 153, 225, 0.2);
+  
+  --badge-backend-bg: rgba(56, 161, 105, 0.1);
+  --badge-backend-text: #276749;
+  --badge-backend-border: rgba(56, 161, 105, 0.2);
+  
+  --badge-fullstack-bg: rgba(159, 122, 234, 0.1);
+  --badge-fullstack-text: #553c9a;
+  --badge-fullstack-border: rgba(159, 122, 234, 0.2);
+  
+  /* Иконки */
+  --icon-color: #4a5568;
+  --icon-hover: #2d3748;
+  
+  /* Селект */
+  --select-bg: #f7fafc;
+  --select-border: #e2e8f0;
+  --select-focus-border: #4299e1;
+  --select-focus-shadow: rgba(66, 153, 225, 0.1);
+}
+
+/* Темная тема */
+[data-theme="dark"] {
+  --roadmap-bg: #1a202c;
+  --roadmap-text: #ffffff;
+  --roadmap-text-secondary: #cbd5e0;
+  --roadmap-text-tertiary: #a0aec0;
+  --roadmap-border: #2d3748;
+  --roadmap-border-light: #4a5568;
+  --roadmap-hover-bg: #2d3748;
+  --roadmap-card-bg: #2d3748;
+  --roadmap-shadow: rgba(0, 0, 0, 0.3);
+  --roadmap-shadow-hover: rgba(0, 0, 0, 0.4);
+  
+  /* Кнопки и селекты */
+  --button-bg: rgba(255, 255, 255, 0.05);
+  --button-border: rgba(255, 255, 255, 0.1);
+  --button-hover-bg: rgba(255, 255, 255, 0.08);
+  --button-text: #ffffff;
+  --button-disabled: #718096;
+  
+  /* Импорт кнопка */
+  --import-button-bg: rgba(66, 153, 225, 0.2);
+  --import-button-border: rgba(66, 153, 225, 0.3);
+  --import-button-hover-bg: rgba(66, 153, 225, 0.25);
+  --import-button-text: #90cdf4;
+  
+  /* Бейджи */
+  --badge-frontend-bg: rgba(66, 153, 225, 0.2);
+  --badge-frontend-text: #90cdf4;
+  --badge-frontend-border: rgba(66, 153, 225, 0.3);
+  
+  --badge-backend-bg: rgba(56, 161, 105, 0.2);
+  --badge-backend-text: #9ae6b4;
+  --badge-backend-border: rgba(56, 161, 105, 0.3);
+  
+  --badge-fullstack-bg: rgba(159, 122, 234, 0.2);
+  --badge-fullstack-text: #d6bcfa;
+  --badge-fullstack-border: rgba(159, 122, 234, 0.3);
+  
+  /* Иконки */
+  --icon-color: #a0aec0;
+  --icon-hover: #ffffff;
+  
+  /* Селект */
+  --select-bg: rgba(255, 255, 255, 0.05);
+  --select-border: rgba(255, 255, 255, 0.1);
+  --select-focus-border: rgba(66, 153, 225, 0.5);
+  --select-focus-shadow: rgba(66, 153, 225, 0.2);
+}
+
 /* Все общие стили feature-card уже в TechnologySearch.css */
 
 .roadmap-controls {
@@ -16,7 +112,7 @@
 .select-label {
     font-size: 0.95em;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--roadmap-text-secondary);
 }
 
 .custom-select {
@@ -27,10 +123,10 @@
 .roadmap-select {
     width: 100%;
     padding: 14px 52px 14px 18px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--select-bg);
+    border: 1px solid var(--select-border);
     border-radius: 12px;
-    color: #ffffff;
+    color: var(--roadmap-text);
     font-size: 1em;
     font-family: inherit;
     appearance: none;
@@ -40,9 +136,9 @@
 
 .roadmap-select:focus {
     outline: none;
-    border-color: rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+    border-color: var(--select-focus-border);
+    background: var(--roadmap-hover-bg);
+    box-shadow: 0 0 0 3px var(--select-focus-shadow);
 }
 
 .roadmap-select:disabled {
@@ -55,7 +151,7 @@
     right: 18px;
     top: 50%;
     transform: translateY(-50%);
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--icon-color);
     pointer-events: none;
 }
 
@@ -67,10 +163,10 @@
     gap: 10px;
     width: 100%;
     padding: 16px 24px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: var(--button-bg);
+    border: 1px solid var(--button-border);
     border-radius: 12px;
-    color: #ffffff;
+    color: var(--button-text);
     font-size: 1em;
     font-weight: 600;
     font-family: inherit;
@@ -87,16 +183,16 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, transparent 30%, rgba(255, 255, 255, 0.05) 100%);
+    background: linear-gradient(135deg, transparent 30%, var(--button-hover-bg) 100%);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
 .feature-button:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.3);
+    background: var(--button-hover-bg);
+    border-color: var(--roadmap-border);
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 24px var(--roadmap-shadow);
 }
 
 .feature-button:hover:not(:disabled)::before {
@@ -106,43 +202,58 @@
 .feature-button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    background: var(--button-bg);
+    border-color: var(--button-border);
+    color: var(--button-disabled);
 }
 
 .import-button {
-    background: rgba(59, 130, 246, 0.2);
-    border-color: rgba(59, 130, 246, 0.3);
+    background: var(--import-button-bg);
+    border-color: var(--import-button-border);
+    color: var(--import-button-text);
 }
 
 .import-button:hover:not(:disabled) {
-    background: rgba(59, 130, 246, 0.3);
-    border-color: rgba(59, 130, 246, 0.4);
+    background: var(--import-button-hover-bg);
+    border-color: var(--import-button-border);
 }
 
 .button-icon {
     flex-shrink: 0;
+    color: var(--icon-color);
+    transition: color 0.3s ease;
+}
+
+.feature-button:hover:not(:disabled) .button-icon {
+    color: var(--icon-hover);
 }
 
 .button-spinner {
     width: 20px;
     height: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-top: 2px solid #ffffff;
+    border: 2px solid var(--roadmap-border);
+    border-top: 2px solid var(--roadmap-text);
     border-radius: 50%;
     animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Roadmap Info */
 .roadmap-info {
     margin-top: 28px;
     padding-top: 24px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--roadmap-border);
 }
 
 .roadmap-info h4 {
     margin: 0 0 16px 0;
     font-size: 1.1em;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--roadmap-text);
 }
 
 .roadmap-list {
@@ -155,16 +266,17 @@
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--roadmap-card-bg);
     padding: 14px 16px;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--roadmap-border-light);
     transition: all 0.3s ease;
 }
 
 .roadmap-item:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.15);
+    background: var(--roadmap-hover-bg);
+    border-color: var(--roadmap-border);
+    box-shadow: 0 4px 12px var(--roadmap-shadow);
 }
 
 .roadmap-badge {
@@ -180,33 +292,61 @@
 }
 
 .roadmap-badge.frontend {
-    background: rgba(59, 130, 246, 0.2);
-    color: #60a5fa;
-    border: 1px solid rgba(59, 130, 246, 0.3);
+    background: var(--badge-frontend-bg);
+    color: var(--badge-frontend-text);
+    border: 1px solid var(--badge-frontend-border);
 }
 
 .roadmap-badge.backend {
-    background: rgba(16, 185, 129, 0.2);
-    color: #34d399;
-    border: 1px solid rgba(16, 185, 129, 0.3);
+    background: var(--badge-backend-bg);
+    color: var(--badge-backend-text);
+    border: 1px solid var(--badge-backend-border);
 }
 
 .roadmap-badge.fullstack {
-    background: rgba(139, 92, 246, 0.2);
-    color: #a78bfa;
-    border: 1px solid rgba(139, 92, 246, 0.3);
+    background: var(--badge-fullstack-bg);
+    color: var(--badge-fullstack-text);
+    border: 1px solid var(--badge-fullstack-border);
 }
 
 .roadmap-content {
     flex: 1;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--roadmap-text-tertiary);
     font-size: 0.9em;
     line-height: 1.4;
 }
 
 .roadmap-content strong {
-    color: #ffffff;
+    color: var(--roadmap-text);
     font-weight: 600;
+}
+
+/* Стили для карточек технологий (если они внутри этого компонента) */
+.feature-card {
+    background: var(--roadmap-bg);
+    border: 1px solid var(--roadmap-border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px var(--roadmap-shadow);
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    box-shadow: 0 4px 16px var(--roadmap-shadow-hover);
+    transform: translateY(-1px);
+}
+
+.feature-card h3 {
+    color: var(--roadmap-text);
+    margin: 0 0 10px 0;
+    font-size: 1.2em;
+}
+
+.feature-card p {
+    color: var(--roadmap-text-secondary);
+    margin: 0;
+    line-height: 1.5;
 }
 
 /* Responsive */
@@ -224,4 +364,67 @@
         width: auto;
         min-width: 240px;
     }
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 767px) {
+    .roadmap-controls {
+        gap: 16px;
+    }
+    
+    .feature-button {
+        padding: 14px 20px;
+    }
+    
+    .roadmap-item {
+        padding: 12px;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .roadmap-badge {
+        width: 32px;
+        height: 32px;
+        font-size: 0.75em;
+    }
+    
+    .roadmap-info {
+        margin-top: 20px;
+        padding-top: 20px;
+    }
+}
+
+/* Дополнительные улучшения для доступности */
+.roadmap-select:focus-visible {
+    outline: 2px solid var(--select-focus-border);
+    outline-offset: 2px;
+}
+
+.feature-button:focus-visible {
+    outline: 2px solid var(--select-focus-border);
+    outline-offset: 2px;
+}
+
+/* Стили для состояний загрузки */
+.feature-button.loading {
+    cursor: wait;
+}
+
+.feature-button.loading .button-text {
+    opacity: 0.7;
+}
+
+/* Стили для пустого состояния */
+.roadmap-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--roadmap-text-tertiary);
+    background: var(--roadmap-card-bg);
+    border-radius: 12px;
+    border: 1px dashed var(--roadmap-border);
+}
+
+.roadmap-empty h4 {
+    color: var(--roadmap-text);
+    margin-bottom: 10px;
 }

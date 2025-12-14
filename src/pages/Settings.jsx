@@ -1,151 +1,336 @@
-import { Link } from 'react-router-dom';
-import './Settings.css';
+// pages/Settings.jsx
+import React, { useState, useEffect } from 'react';
+import {
+    Container,
+    Typography,
+    Box,
+    Paper,
+    Button,
+    Alert,
+    Divider,
+    List,
+    ListItem,
+    ListItemText,
+    IconButton,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    Tooltip
+} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DownloadIcon from '@mui/icons-material/Download';
+import InfoIcon from '@mui/icons-material/Info';
 
 function Settings() {
-  const handleExport = () => {
-    const data = {
-      exportedAt: new Date().toISOString(),
-      technologies: JSON.parse(localStorage.getItem('technologies') || '[]')
-    };
-    
-    const dataStr = JSON.stringify(data, null, 2);
-    const blob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `tech-tracker-backup-${new Date().toISOString().split('T')[0]}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
+    const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+    const [showExportDialog, setShowExportDialog] = useState(false);
+    const [exportFormat, setExportFormat] = useState('json');
+    const [message, setMessage] = useState({ text: '', type: '' });
 
-  const handleImport = (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
+    const isDemoMode = localStorage.getItem('isDemoMode') === 'true';
+    const username = localStorage.getItem('username') || '';
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      try {
-        const data = JSON.parse(e.target.result);
-        if (data.technologies && Array.isArray(data.technologies)) {
-          localStorage.setItem('technologies', JSON.stringify(data.technologies));
-          alert('Данные успешно импортированы! Страница будет перезагружена.');
-          window.location.reload();
-        } else {
-          alert('Неверный формат файла');
+    const handleClearData = () => {
+        try {
+            // Сохраняем только настройки темы
+            const themeMode = localStorage.getItem('themeMode');
+            
+            // Очищаем все данные приложения
+            const prefix = 'techTracker_';
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith(prefix)) {
+                    localStorage.removeItem(key);
+                }
+            }
+            
+            // Восстанавливаем настройки темы
+            if (themeMode) {
+                localStorage.setItem('themeMode', themeMode);
+            }
+            
+            setMessage({
+                text: 'Все данные успешно очищены!',
+                type: 'success'
+            });
+            
+            // Перезагружаем страницу через 2 секунды
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+        } catch (error) {
+            setMessage({
+                text: 'Ошибка при очистке данных',
+                type: 'error'
+            });
         }
-      } catch (error) {
-        alert('Ошибка при чтении файла');
-      }
     };
-    reader.readAsText(file);
-  };
 
-  const handleReset = () => {
-    if (confirm('Вы уверены, что хотите сбросить все данные? Это действие нельзя отменить.')) {
-      localStorage.removeItem('technologies');
-      alert('Данные сброшены. Страница будет перезагружена.');
-      window.location.reload();
-    }
-  };
-
-  const appInfo = [
-    { label: 'Версия', value: '1.0.0' },
-    { label: 'Разработчик', value: 'Трекер технологий' },
-    { label: 'Описание', value: 'Приложение для отслеживания прогресса изучения технологий' },
-    { label: 'Дата сборки', value: new Date().toLocaleDateString() }
-  ];
-
-  return (
-    <div className="settings-page">
-      {/* Шапка с заголовком и кнопкой назад */}
-      <header className="settings-header">
-        <div>
-          <h1>Настройки</h1>
-          <p className="header-subtitle">Управление приложением и данными</p>
-        </div>
-        <Link to="/" className="back-button">
-          ← На главную
-        </Link>
-      </header>
-
-      {/* Основной контент в двух колонках */}
-      <div className="settings-content">
-        {/* Левая колонка - Управление данными */}
-        <div className="settings-column left-column">
-          <div className="settings-card">
-            <h2 className="card-title">Управление данными</h2>
+    const handleExportData = () => {
+        try {
+            const data = {};
+            const prefix = 'techTracker_';
             
-            <div className="data-management-section">
-              <div className="action-card">
-                <div className="action-content">
-                  <h3>Экспорт данных</h3>
-                  <p>Создайте резервную копию всех технологий и прогресса</p>
-                </div>
-                <button onClick={handleExport} className="action-button primary">
-                  Экспорт
-                </button>
-              </div>
-
-              <div className="action-card">
-                <div className="action-content">
-                  <h3>Импорт данных</h3>
-                  <p>Восстановите данные из резервной копии</p>
-                </div>
-                <label className="action-button secondary file-upload-label">
-                  <input
-                    type="file"
-                    accept=".json"
-                    onChange={handleImport}
-                    className="file-input"
-                  />
-                  <span className="file-upload-text">Выбрать файл</span>
-                </label>
-              </div>
-            </div>
-
-            <div className="danger-zone">
-              <p className="danger-description">
-                Эти действия необратимы. Убедитесь, что у вас есть резервная копия.
-              </p>
-              <button onClick={handleReset} className="danger-button">
-                Сбросить все данные
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Правая колонка - Информация */}
-        <div className="settings-column right-column">
-          <div className="settings-card">
-            <h2 className="card-title">Информация о приложении</h2>
+            // Собираем все данные приложения
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith(prefix)) {
+                    try {
+                        const value = localStorage.getItem(key);
+                        data[key] = JSON.parse(value);
+                    } catch {
+                        data[key] = localStorage.getItem(key);
+                    }
+                }
+            }
             
-            <div className="info-grid">
-              {appInfo.map((item, index) => (
-                <div key={index} className="info-item">
-                  <div className="info-label">{item.label}</div>
-                  <div className="info-value">{item.value}</div>
-                </div>
-              ))}
-            </div>
-          </div>
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `tech-tracker-backup-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            setMessage({
+                text: 'Данные успешно экспортированы!',
+                type: 'success'
+            });
+            
+            setShowExportDialog(false);
+        } catch (error) {
+            setMessage({
+                text: 'Ошибка при экспорте данных',
+                type: 'error'
+            });
+        }
+    };
 
-          <div className="quick-links">
-            <h3>Навигация</h3>
-            <div className="links-grid">
-              <Link to="/" className="quick-link">
-                <span className="link-text">Главная</span>
-              </Link>
-              <Link to="/statistics" className="quick-link">
-                <span className="link-text">Статистика</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+    const handleClearDemoData = () => {
+        try {
+            if (isDemoMode) {
+                // Удаляем только демо-данные
+                localStorage.removeItem('techTracker_technologies_demo_user');
+                localStorage.removeItem('techTracker_demo_data_loaded');
+                
+                setMessage({
+                    text: 'Демо-данные успешно очищены! Перезагрузите страницу.',
+                    type: 'success'
+                });
+                
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            }
+        } catch (error) {
+            setMessage({
+                text: 'Ошибка при очистке демо-данных',
+                type: 'error'
+            });
+        }
+    };
+
+    return (
+        <Container maxWidth="md" sx={{ py: 4 }}>
+            <Typography variant="h3" component="h1" gutterBottom>
+                Настройки
+            </Typography>
+
+            {isDemoMode && (
+                <Alert 
+                    severity="warning" 
+                    sx={{ mb: 3 }}
+                    icon={<InfoIcon />}
+                >
+                    <Typography variant="body2">
+                        Вы находитесь в демо-режиме. Все изменения сохраняются локально.
+                    </Typography>
+                </Alert>
+            )}
+
+            {message.text && (
+                <Alert 
+                    severity={message.type} 
+                    sx={{ mb: 3 }}
+                    onClose={() => setMessage({ text: '', type: '' })}
+                >
+                    {message.text}
+                </Alert>
+            )}
+
+            {isDemoMode && (
+                <Paper sx={{ p: 3, mb: 3 }}>
+                    <Typography variant="h5" gutterBottom>
+                        Управление демо-данными
+                    </Typography>
+                    <Box sx={{ mt: 2 }}>
+                        <Button
+                            variant="contained"
+                            color="warning"
+                            startIcon={<DeleteIcon />}
+                            onClick={handleClearDemoData}
+                            sx={{ mr: 2 }}
+                        >
+                            Очистить демо-данные
+                        </Button>
+                        <Typography variant="body2" sx={{ mt: 2, color: 'text.secondary' }}>
+                            Удаляет все технологии и изменения, сделанные в демо-режиме.
+                        </Typography>
+                    </Box>
+                </Paper>
+            )}
+
+            <Paper sx={{ p: 3, mb: 3 }}>
+                <Typography variant="h5" gutterBottom>
+                    Информация о пользователе
+                </Typography>
+                
+                <Box sx={{ mb: 3 }}>
+                    <Typography variant="body1" gutterBottom>
+                        <strong>Имя пользователя:</strong> {username}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                        Для изменения имени пользователя войдите под другим аккаунтом.
+                    </Typography>
+                </Box>
+            </Paper>
+
+            <Paper sx={{ p: 3, mb: 3 }}>
+                <Typography variant="h5" gutterBottom>
+                    Управление данными
+                </Typography>
+                
+                <List>
+                    <ListItem
+                        secondaryAction={
+                            <Button
+                                variant="outlined"
+                                startIcon={<DownloadIcon />}
+                                onClick={() => setShowExportDialog(true)}
+                            >
+                                Экспорт
+                            </Button>
+                        }
+                    >
+                        <ListItemText
+                            primary="Экспорт всех данных"
+                            secondary="Сохраните все ваши технологии и настройки в файл"
+                        />
+                    </ListItem>
+                    
+                    <Divider />
+                    
+                    <ListItem
+                        secondaryAction={
+                            <Tooltip title="Осторожно! Это действие нельзя отменить">
+                                <IconButton
+                                    edge="end"
+                                    color="error"
+                                    onClick={() => setShowConfirmDialog(true)}
+                                >
+                                    <DeleteIcon />
+                                </IconButton>
+                            </Tooltip>
+                        }
+                    >
+                        <ListItemText
+                            primary="Очистить все данные"
+                            secondary="Удаляет все технологии, настройки и историю"
+                        />
+                    </ListItem>
+                </List>
+            </Paper>
+
+            <Paper sx={{ p: 3 }}>
+                <Typography variant="h5" gutterBottom>
+                    Информация о приложении
+                </Typography>
+                
+                <Box sx={{ mb: 2 }}>
+                    <Typography variant="body1" gutterBottom>
+                        <strong>Версия:</strong> 1.0.0
+                    </Typography>
+                    <Typography variant="body1" gutterBottom>
+                        <strong>Разработчик:</strong> TechTracker Team
+                    </Typography>
+                    <Typography variant="body1" gutterBottom>
+                        <strong>Лицензия:</strong> MIT
+                    </Typography>
+                </Box>
+                
+                {isDemoMode && (
+                    <Alert severity="info" sx={{ mt: 2 }}>
+                        <Typography variant="body2">
+                            <strong>Демо-режим активен</strong> — все данные сохраняются локально в браузере.
+                            Для переноса данных используйте функцию экспорта.
+                        </Typography>
+                    </Alert>
+                )}
+            </Paper>
+
+            {/* Диалог подтверждения очистки данных */}
+            <Dialog
+                open={showConfirmDialog}
+                onClose={() => setShowConfirmDialog(false)}
+            >
+                <DialogTitle>Подтверждение очистки данных</DialogTitle>
+                <DialogContent>
+                    <Typography>
+                        Вы уверены, что хотите очистить все данные приложения?
+                        Это действие нельзя отменить. Будут удалены:
+                    </Typography>
+                    <ul>
+                        <li>Все технологии</li>
+                        <li>Все заметки и ресурсы</li>
+                        <li>Вся история изменений</li>
+                    </ul>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setShowConfirmDialog(false)}>
+                        Отмена
+                    </Button>
+                    <Button onClick={handleClearData} color="error">
+                        Очистить все данные
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            {/* Диалог экспорта */}
+            <Dialog
+                open={showExportDialog}
+                onClose={() => setShowExportDialog(false)}
+                maxWidth="sm"
+                fullWidth
+            >
+                <DialogTitle>Экспорт данных</DialogTitle>
+                <DialogContent>
+                    <Typography sx={{ mb: 2 }}>
+                        Выберите формат для экспорта всех данных приложения:
+                    </Typography>
+                    
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                        <Typography variant="body1">
+                            <strong>JSON формат</strong> (рекомендуется)
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Сохраняет все данные в структурированном формате JSON для последующего импорта.
+                        </Typography>
+                    </Box>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setShowExportDialog(false)}>
+                        Отмена
+                    </Button>
+                    <Button onClick={handleExportData} variant="contained">
+                        Экспортировать
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </Container>
+    );
 }
 
 export default Settings;
