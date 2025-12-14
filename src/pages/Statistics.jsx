@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import ProgressBar from '../components/ProgressBar';
 import './Statistics.css';
@@ -21,14 +21,25 @@ const calculateStats = (techData) => {
     const notStarted = techData.filter(tech => tech.status === 'not-started').length;
     const completionRate = total > 0 ? Math.round((completed / total) * 100) : 0;
 
-    // Статистика по категориям
+    // Статистика по категориям - исправленные категории
     const byCategory = {};
     techData.forEach(tech => {
-        if (!byCategory[tech.category]) {
-            byCategory[tech.category] = { total: 0, completed: 0, inProgress: 0, notStarted: 0 };
+        // Используем категорию из данных или 'other' по умолчанию
+        const category = tech.category || 'other';
+        
+        if (!byCategory[category]) {
+            byCategory[category] = { total: 0, completed: 0, inProgress: 0, notStarted: 0 };
         }
-        byCategory[tech.category].total++;
-        byCategory[tech.category][tech.status]++;
+        byCategory[category].total++;
+        
+        // Увеличиваем счетчик для соответствующего статуса
+        if (tech.status === 'completed') {
+            byCategory[category].completed++;
+        } else if (tech.status === 'in-progress') {
+            byCategory[category].inProgress++;
+        } else if (tech.status === 'not-started') {
+            byCategory[category].notStarted++;
+        }
     });
 
     return {
@@ -42,31 +53,143 @@ const calculateStats = (techData) => {
 };
 
 function Statistics() {
-    const [stats] = useState(() => {
-        const saved = localStorage.getItem('technologies');
-        if (saved) {
-            const techData = JSON.parse(saved);
-            return calculateStats(techData);
-        }
-        return {
-            total: 0,
-            completed: 0,
-            inProgress: 0,
-            notStarted: 0,
-            completionRate: 0,
-            byCategory: {}
-        };
+    const [stats, setStats] = useState({
+        total: 0,
+        completed: 0,
+        inProgress: 0,
+        notStarted: 0,
+        completionRate: 0,
+        byCategory: {}
     });
 
-    console.log('Статистика:', stats);
-    console.log('Прогресс для Изучено:', stats.total ? (stats.completed / stats.total) * 100 : 0);
-    console.log('Прогресс для В процессе:', stats.total ? (stats.inProgress / stats.total) * 100 : 0);
-    console.log('Прогресс для Не начато:', stats.total ? (stats.notStarted / stats.total) * 100 : 0);
+    // Используем useRef для хранения предыдущих данных
+    const prevDataRef = useRef(null);
+
+    const loadStatistics = () => {
+        const username = localStorage.getItem('username') || 'demo_user';
+        const isDemoMode = localStorage.getItem('isDemoMode') === 'true';
+        
+        let storageKey;
+        
+        if (isDemoMode) {
+            storageKey = 'techTracker_technologies_demo_user';
+        } else {
+            storageKey = `techTracker_technologies_${username}`;
+        }
+        
+        const saved = localStorage.getItem(storageKey);
+        
+        if (saved) {
+            try {
+                const techData = JSON.parse(saved);
+                console.log('Загружены данные:', techData);
+                
+                // Проверяем, изменились ли данные
+                if (JSON.stringify(techData) !== JSON.stringify(prevDataRef.current)) {
+                    prevDataRef.current = techData;
+                    const calculatedStats = calculateStats(techData);
+                    console.log('Рассчитанная статистика:', calculatedStats);
+                    console.log('Категории в статистике:', calculatedStats.byCategory);
+                    setStats(calculatedStats);
+                }
+            } catch (error) {
+                console.error('Ошибка при парсинге данных:', error);
+            }
+        } else {
+            console.log('Данные не найдены по ключу:', storageKey);
+            // Если данных нет, сбрасываем статистику
+            if (prevDataRef.current !== null) {
+                prevDataRef.current = null;
+                setStats({
+                    total: 0,
+                    completed: 0,
+                    inProgress: 0,
+                    notStarted: 0,
+                    completionRate: 0,
+                    byCategory: {}
+                });
+            }
+        }
+    };
+
+    useEffect(() => {
+        // Первоначальная загрузка
+        loadStatistics();
+
+        // Функция для проверки изменений в localStorage
+        const checkForChanges = () => {
+            loadStatistics();
+        };
+
+        // Слушаем кастомное событие, которое будет отправляться при изменениях
+        const handleTechDataUpdated = () => {
+            console.log('Событие techDataUpdated получено');
+            loadStatistics();
+        };
+
+        // Слушаем изменения в localStorage из других вкладок
+        const handleStorageChange = (e) => {
+            if (e.key && (e.key.includes('technologies') || e.key.includes('techTracker'))) {
+                console.log('Изменения из другой вкладки:', e.key);
+                loadStatistics();
+            }
+        };
+
+        // Подписываемся на события
+        window.addEventListener('techDataUpdated', handleTechDataUpdated);
+        window.addEventListener('storage', handleStorageChange);
+
+        // Также устанавливаем интервал для периодической проверки
+        const intervalId = setInterval(checkForChanges, 1000);
+
+        // Очистка при размонтировании
+        return () => {
+            window.removeEventListener('techDataUpdated', handleTechDataUpdated);
+            window.removeEventListener('storage', handleStorageChange);
+            clearInterval(intervalId);
+        };
+    }, []);
 
     const getCategoryProgress = (category) => {
         if (!stats.byCategory[category] || stats.byCategory[category].total === 0) return 0;
         return Math.round((stats.byCategory[category].completed / stats.byCategory[category].total) * 100);
     };
+
+    // Функция для получения русского названия категории - исправленная
+    const getCategoryName = (category) => {
+        const categoryNames = {
+            'frontend': 'Фронтенд',
+            'backend': 'Бэкенд',
+            'devops': 'DevOps',
+            'database': 'Базы данных',
+            'mobile': 'Мобильная разработка',
+            'other': 'Другое'
+        };
+        return categoryNames[category] || category;
+    };
+
+    // Функция для получения иконки категории
+    const getCategoryIcon = (category) => {
+        const iconClasses = {
+            'frontend': 'frontend-icon',
+            'backend': 'backend-icon', 
+            'devops': 'devops-icon',
+            'database': 'database-icon',
+            'mobile': 'mobile-icon',
+            'other': 'other-icon'
+        };
+        return iconClasses[category] || 'other-icon';
+    };
+
+    // Сортируем категории по прогрессу (сначала с большим прогрессом)
+    const sortedCategories = Object.keys(stats.byCategory).sort((a, b) => {
+        const progressA = getCategoryProgress(a);
+        const progressB = getCategoryProgress(b);
+        return progressB - progressA;
+    });
+
+    console.log('Текущая статистика:', stats);
+    console.log('Отсортированные категории:', sortedCategories);
 
     return (
         <div className="statistics-container">
@@ -209,32 +332,46 @@ function Statistics() {
                     <div className="category-card">
                         <h2>Прогресс по категориям</h2>
                         <div className="category-progress-list">
-                            {Object.keys(stats.byCategory).map(category => (
-                                <div key={category} className="category-progress-item">
-                                    <div className="category-header">
-                                        <div className="category-info">
-                                            <span className={`category-icon ${category}`}></span>
-                                            <div>
-                                                <div className="category-name">
-                                                    {category === 'frontend' ? 'Фронтенд' : 'Бэкенд'}
+                            {sortedCategories.length > 0 ? (
+                                sortedCategories.map(category => {
+                                    const categoryData = stats.byCategory[category];
+                                    const progress = getCategoryProgress(category);
+                                    
+                                    return (
+                                        <div key={category} className="category-progress-item">
+                                            <div className="category-header">
+                                                <div className="category-info">
+                                                    <span className={`category-icon ${getCategoryIcon(category)}`}></span>
+                                                    <div>
+                                                        <div className="category-name">
+                                                            {getCategoryName(category)}
+                                                        </div>
+                                                        <div className="category-subtitle">
+                                                            {categoryData.completed} из {categoryData.total} изучено
+                                                            {categoryData.inProgress > 0 && `, ${categoryData.inProgress} в процессе`}
+                                                            {categoryData.notStarted > 0 && `, ${categoryData.notStarted} не начато`}
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className="category-subtitle">
-                                                    {stats.byCategory[category].completed} из {stats.byCategory[category].total}
+                                                <div className="category-percentage">
+                                                    {progress}%
                                                 </div>
                                             </div>
+                                            <ProgressBar
+                                                progress={progress}
+                                                height={12}
+                                                color="#2196F3"
+                                                showPercentage={false}
+                                            />
                                         </div>
-                                        <div className="category-percentage">
-                                            {getCategoryProgress(category)}%
-                                        </div>
-                                    </div>
-                                    <ProgressBar
-                                        progress={getCategoryProgress(category)}
-                                        height={12}
-                                        color={category === 'frontend' ? '#2196F3' : '#FF9800'}
-                                        showPercentage={false}
-                                    />
+                                    );
+                                })
+                            ) : (
+                                <div className="no-categories">
+                                    <p>Нет данных по категориям</p>
+                                    <p className="hint">Добавьте технологии, чтобы увидеть статистику</p>
                                 </div>
-                            ))}
+                            )}
                         </div>
                     </div>
                 </div>

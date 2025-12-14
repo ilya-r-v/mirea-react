@@ -1,5 +1,4 @@
-// pages/Settings.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     Container,
     Typography,
@@ -21,11 +20,12 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import DownloadIcon from '@mui/icons-material/Download';
 import InfoIcon from '@mui/icons-material/Info';
+import { useNavigate } from 'react-router-dom';
 
 function Settings() {
+    const navigate = useNavigate();
     const [showConfirmDialog, setShowConfirmDialog] = useState(false);
     const [showExportDialog, setShowExportDialog] = useState(false);
-    const [exportFormat, setExportFormat] = useState('json');
     const [message, setMessage] = useState({ text: '', type: '' });
 
     const isDemoMode = localStorage.getItem('isDemoMode') === 'true';
@@ -64,13 +64,13 @@ function Settings() {
             if (storedIsDemoMode) localStorage.setItem('isDemoMode', storedIsDemoMode);
             
             setMessage({
-                text: 'Все данные успешно очищены! Страница перезагрузится через 2 секунды.',
+                text: 'Все данные успешно очищены! Вы будете перенаправлены на главную страницу через 2 секунды.',
                 type: 'success'
             });
             
-            // Перезагружаем страницу через 2 секунды
+            // Редирект на главную страницу через 2 секунды
             setTimeout(() => {
-                window.location.reload();
+                navigate('/');
             }, 2000);
         } catch (error) {
             console.error('Error clearing data:', error);
@@ -143,12 +143,13 @@ function Settings() {
                 localStorage.removeItem('techTracker_demo_data_loaded');
                 
                 setMessage({
-                    text: 'Демо-данные успешно очищены! Перезагрузите страницу.',
+                    text: 'Демо-данные успешно очищены! Вы будете перенаправлены на главную страницу через 2 секунды.',
                     type: 'success'
                 });
                 
+                // Редирект на главную страницу через 2 секунды
                 setTimeout(() => {
-                    window.location.reload();
+                    navigate('/');
                 }, 2000);
             }
         } catch (error) {
