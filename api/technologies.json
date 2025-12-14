@@ -1,0 +1,141 @@
+{
+  "technologies": [
+    {
+      "id": 1,
+      "title": "React",
+      "description": "Библиотека для создания пользовательских интерфейсов",
+      "category": "frontend",
+      "difficulty": "beginner",
+      "status": "not-started",
+      "deadline": null,
+      "resources": [
+        {
+          "title": "Официальная документация React",
+          "url": "https://react.dev",
+          "type": "documentation"
+        },
+        {
+          "title": "React на русском",
+          "url": "https://ru.reactjs.org",
+          "type": "documentation"
+        }
+      ],
+      "notes": "",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "title": "Node.js",
+      "description": "Среда выполнения JavaScript на сервере",
+      "category": "backend",
+      "difficulty": "intermediate",
+      "status": "not-started",
+      "deadline": null,
+      "resources": [
+        {
+          "title": "Официальный сайт Node.js",
+          "url": "https://nodejs.org",
+          "type": "documentation"
+        },
+        {
+          "title": "Документация Node.js на русском",
+          "url": "https://nodejs.org/ru/docs/",
+          "type": "documentation"
+        }
+      ],
+      "notes": "",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "title": "TypeScript",
+      "description": "Типизированное надмножество JavaScript",
+      "category": "frontend",
+      "difficulty": "intermediate",
+      "status": "not-started",
+      "resources": [
+        {
+          "title": "Официальный сайт TypeScript",
+          "url": "https://www.typescriptlang.org",
+          "type": "documentation"
+        },
+        {
+          "title": "TypeScript Handbook",
+          "url": "https://www.typescriptlang.org/docs/handbook/intro.html",
+          "type": "documentation"
+        }
+      ],
+      "notes": "",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "title": "MongoDB",
+      "description": "Документоориентированная система управления базами данных",
+      "category": "backend",
+      "difficulty": "intermediate",
+      "status": "not-started",
+      "deadline": null,
+      "resources": [
+        {
+          "title": "Официальный сайт MongoDB",
+          "url": "https://www.mongodb.com",
+          "type": "documentation"
+        },
+        {
+          "title": "MongoDB University",
+          "url": "https://university.mongodb.com",
+          "type": "course"
+        }
+      ],
+      "notes": "",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": 5,
+      "title": "Next.js",
+      "description": "Фреймворк для React с рендерингом на стороне сервера",
+      "category": "frontend",
+      "difficulty": "intermediate",
+      "status": "not-started",
+      "deadline": null,
+      "resources": [
+        {
+          "title": "Официальная документация Next.js",
+          "url": "https://nextjs.org/docs",
+          "type": "documentation"
+        },
+        {
+          "title": "Next.js на Vercel",
+          "url": "https://vercel.com/solutions/nextjs",
+          "type": "documentation"
+        }
+      ],
+      "notes": "",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": 6,
+      "title": "Express.js",
+      "description": "Фреймворк для Node.js для создания веб-приложений",
+      "category": "backend",
+      "difficulty": "beginner",
+      "status": "not-started",
+      "deadline": null,
+      "resources": [
+        {
+          "title": "Официальный сайт Express.js",
+          "url": "https://expressjs.com",
+          "type": "documentation"
+        },
+        {
+          "title": "Express.js guide",
+          "url": "https://expressjs.com/en/guide/routing.html",
+          "type": "documentation"
+        }
+      ],
+      "notes": "",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}
