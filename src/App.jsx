@@ -182,6 +182,7 @@ function HomePage() {
                             <TechnologySearch 
                                 onSearchResults={handleSearchResults}
                                 onSearchStateChange={handleSearchStateChange}
+                                userTechnologies={technologies} 
                             />
 
                             <RoadmapImporter />
@@ -324,24 +325,6 @@ function HomePage() {
                                             onDeadlineChange={handleDeadlineChange}
                                             calculateDeadlineStatus={calculateDeadlineStatus}
                                         />
-                                        {apiSearchResults && (
-                                            <button 
-                                                onClick={() => handleAddFromSearch(tech)}
-                                                className="btn-add-from-search"
-                                                style={{
-                                                    width: '100%',
-                                                    marginTop: '8px',
-                                                    padding: '8px',
-                                                    backgroundColor: '#1976d2',
-                                                    color: 'white',
-                                                    border: 'none',
-                                                    borderRadius: '4px',
-                                                    cursor: 'pointer'
-                                                }}
-                                            >
-                                                Добавить в трекер
-                                            </button>
-                                        )}
                                     </Box>
                                 ))}
                             </Box>

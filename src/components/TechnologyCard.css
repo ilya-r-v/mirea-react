@@ -28,6 +28,12 @@
   --deadline-urgent: #7a7a7a;
   --deadline-approaching: #9a9a9a;
   --deadline-normal: #cacaca;
+  
+  /* Специальные для textarea */
+  --textarea-bg: #ffffff;
+  --textarea-text: #000000;
+  --textarea-border: #e5e7eb;
+  --textarea-placeholder: #9ca3af;
 }
 
 /* Темная тема */
@@ -61,6 +67,12 @@
   --deadline-urgent: #8a8a8a;
   --deadline-approaching: #aaaaaa;
   --deadline-normal: #dadada;
+  
+  /* Специальные для textarea в темной теме */
+  --textarea-bg: #2d2d2d;
+  --textarea-text: #ffffff;
+  --textarea-border: #404040;
+  --textarea-placeholder: #888888;
 }
 
 /* Основные стили карточки */
@@ -333,10 +345,10 @@
 .notes-textarea {
     width: 100%;
     padding: 12px;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
+    background: var(--textarea-bg);
+    border: 1px solid var(--textarea-border);
     border-radius: 6px;
-    color: var(--text-primary);
+    color: var(--textarea-text);
     font-family: inherit;
     font-size: 0.95em;
     resize: vertical;
@@ -346,11 +358,11 @@
 .notes-textarea:focus {
     outline: none;
     border-color: var(--text-muted);
-    background: var(--card-bg);
+    background: var(--textarea-bg);
 }
 
 .notes-textarea::placeholder {
-    color: var(--text-muted);
+    color: var(--textarea-placeholder);
 }
 
 .notes-footer {

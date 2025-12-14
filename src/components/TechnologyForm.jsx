@@ -255,26 +255,6 @@ function TechnologyForm({ onSave, onCancel, initialData = {} }) {
                 </div>
             </div>
 
-            {/* Дедлайн */}
-            <div className="form-group">
-                <label htmlFor="deadline">Дедлайн (необязательно)</label>
-                <input
-                    id="deadline"
-                    name="deadline"
-                    type="date"
-                    value={formData.deadline}
-                    onChange={handleChange}
-                    className={errors.deadline ? 'error' : ''}
-                    aria-invalid={!!errors.deadline}
-                    aria-describedby={errors.deadline ? 'deadline-error' : undefined}
-                />
-                {errors.deadline && (
-                    <span id="deadline-error" className="error-message" role="alert">
-                        {errors.deadline}
-                    </span>
-                )}
-            </div>
-
             {/* Список ресурсов для изучения */}
             <div className="form-group">
                 <label>Ресурсы для изучения</label>

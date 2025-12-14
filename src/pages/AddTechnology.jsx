@@ -10,7 +10,8 @@ function AddTechnology() {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    category: 'frontend'
+    category: 'frontend',
+    difficulty: 'beginner'
   });
 
   const handleSubmit = (e) => {
@@ -21,11 +22,14 @@ function AddTechnology() {
       ...formData,
       id: Math.max(...technologies.map(t => t.id), 0) + 1,
       status: 'not-started',
-      notes: ''
+      notes: '',
+      deadline: null,
+      resources: [],
+      createdAt: new Date().toISOString()
     };
 
     addTechnology(newTech);
-    navigate('/technologies');
+    navigate('/');
   };
 
   const handleChange = (e) => {
@@ -38,10 +42,8 @@ function AddTechnology() {
   return (
     <div className="page add-technology">
       <div className="page-header">
-        {/* <Link to="/technologies" className="back-link">
-          ← Назад к списку
-        </Link> */}
         <h1>Добавить технологию</h1>
+        <p className="page-subtitle">Добавьте новую технологию для изучения</p>
       </div>
 
       <form onSubmit={handleSubmit} className="tech-form">
@@ -55,6 +57,7 @@ function AddTechnology() {
             onChange={handleChange}
             required
             placeholder="Например: React, Node.js, TypeScript..."
+            className="form-control"
           />
         </div>
 
@@ -65,34 +68,57 @@ function AddTechnology() {
             name="description"
             value={formData.description}
             onChange={handleChange}
-            rows="4"
-            placeholder="Опишите, что это за технология и что вы планируете изучить..."
+            rows="3"
+            placeholder="Краткое описание технологии..."
+            className="form-control"
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="category">Категория</label>
-          <select
-            id="category"
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-          >
-            <option value="frontend">Frontend</option>
-            <option value="backend">Backend</option>
-            <option value="mobile">Mobile</option>
-            <option value="devops">DevOps</option>
-            <option value="database">Базы данных</option>
-            <option value="tools">Инструменты</option>
-            <option value="other">Другое</option>
-          </select>
+        <div className="form-row">
+          <div className="form-group">
+            <label htmlFor="category">Категория *</label>
+            <select
+              id="category"
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              required
+              className="form-control"
+            >
+              <option value="frontend">Frontend</option>
+              <option value="backend">Backend</option>
+              <option value="database">Базы данных</option>
+              <option value="infrastructure">Инфраструктура</option>
+              <option value="tools">Инструменты</option>
+              <option value="mobile">Мобильная разработка</option>
+              <option value="ai">AI/ML</option>
+              <option value="other">Другое</option>
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="difficulty">Сложность *</label>
+            <select
+              id="difficulty"
+              name="difficulty"
+              value={formData.difficulty}
+              onChange={handleChange}
+              required
+              className="form-control"
+            >
+              <option value="beginner">Начальный</option>
+              <option value="intermediate">Средний</option>
+              <option value="advanced">Продвинутый</option>
+              <option value="expert">Эксперт</option>
+            </select>
+          </div>
         </div>
 
         <div className="form-actions">
           <button type="submit" className="btn btn-primary">
             Добавить технологию
           </button>
-          <Link to="/technologies" className="btn btn-secondary">
+          <Link to="/" className="btn btn-secondary">
             Отмена
           </Link>
         </div>

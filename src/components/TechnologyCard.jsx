@@ -268,23 +268,13 @@ function TechnologyCard({
                         </p>
                         
                         {/* Блок с заметками */}
-                        <div className="notes-section" style={{ 
-                            marginBottom: '20px',
-                            backgroundColor: '#f9fafb',
-                            padding: '15px',
-                            borderRadius: '8px'
-                        }}>
-                            <div className="section-header" style={{ 
-                                display: 'flex', 
-                                alignItems: 'center', 
-                                gap: '8px',
-                                marginBottom: '12px'
-                            }}>
+                        <div className="notes-section">
+                            <div className="section-header">
                                 <svg className="section-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                                 </svg>
-                                <h4 style={{ margin: 0, fontSize: '16px', fontWeight: '600' }}>Заметки</h4>
+                                <h4>Заметки</h4>
                             </div>
                             <textarea
                                 value={notes}
@@ -293,36 +283,13 @@ function TechnologyCard({
                                 placeholder="Записывайте сюда важные моменты..."
                                 rows="3"
                                 className="notes-textarea"
-                                style={{
-                                    width: '100%',
-                                    padding: '10px',
-                                    border: '1px solid #e5e7eb',
-                                    borderRadius: '6px',
-                                    fontSize: '14px',
-                                    resize: 'vertical',
-                                    backgroundColor: 'white'
-                                }}
                             />
-                            <div className="notes-footer" style={{ 
-                                display: 'flex', 
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                marginTop: '8px'
-                            }}>
-                                <div className="notes-hint" style={{ 
-                                    fontSize: '12px', 
-                                    color: '#6b7280'
-                                }}>
+                            <div className="notes-footer">
+                                <div className="notes-hint">
                                     {notes.length > 0 ? `${notes.length} символов` : 'Добавьте заметку'}
                                 </div>
                                 {notes.length > 0 && (
-                                    <div className="notes-saved" style={{ 
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '4px',
-                                        fontSize: '12px',
-                                        color: '#10b981'
-                                    }}>
+                                    <div className="notes-saved">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                             <path d="M20 6L9 17l-5-5"></path>
                                         </svg>
@@ -334,22 +301,13 @@ function TechnologyCard({
                     </div>
 
                     {/* Блок с ресурсами */}
-                    <div className="resources-section" style={{ 
-                        backgroundColor: '#f9fafb',
-                        padding: '15px',
-                        borderRadius: '8px'
-                    }}>
-                        <div className="section-header" style={{ 
-                            display: 'flex', 
-                            alignItems: 'center', 
-                            gap: '8px',
-                            marginBottom: '12px'
-                        }}>
+                    <div className="resources-section">
+                        <div className="section-header">
                             <svg className="section-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
                                 <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
                             </svg>
-                            <h4 style={{ margin: 0, fontSize: '16px', fontWeight: '600' }}>Ресурсы</h4>
+                            <h4>Ресурсы</h4>
                         </div>
                         <TechnologyResources 
                             technology={technology}

@@ -33,25 +33,38 @@ function Settings() {
 
     const handleClearData = () => {
         try {
-            // Сохраняем только настройки темы
+            // Сохраняем только настройки темы и логина
             const themeMode = localStorage.getItem('themeMode');
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const storedUsername = localStorage.getItem('username');
+            const storedIsDemoMode = localStorage.getItem('isDemoMode');
             
             // Очищаем все данные приложения
             const prefix = 'techTracker_';
+            const keysToKeep = ['themeMode', 'isLoggedIn', 'username', 'isDemoMode'];
+            
+            // Создаем копию localStorage для очистки
+            const keys = [];
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
                 if (key && key.startsWith(prefix)) {
-                    localStorage.removeItem(key);
+                    keys.push(key);
                 }
             }
             
-            // Восстанавливаем настройки темы
-            if (themeMode) {
-                localStorage.setItem('themeMode', themeMode);
-            }
+            // Удаляем данные с префиксом
+            keys.forEach(key => {
+                localStorage.removeItem(key);
+            });
+            
+            // Восстанавливаем важные настройки
+            if (themeMode) localStorage.setItem('themeMode', themeMode);
+            if (isLoggedIn) localStorage.setItem('isLoggedIn', isLoggedIn);
+            if (storedUsername) localStorage.setItem('username', storedUsername);
+            if (storedIsDemoMode) localStorage.setItem('isDemoMode', storedIsDemoMode);
             
             setMessage({
-                text: 'Все данные успешно очищены!',
+                text: 'Все данные успешно очищены! Страница перезагрузится через 2 секунды.',
                 type: 'success'
             });
             
@@ -60,6 +73,7 @@ function Settings() {
                 window.location.reload();
             }, 2000);
         } catch (error) {
+            console.error('Error clearing data:', error);
             setMessage({
                 text: 'Ошибка при очистке данных',
                 type: 'error'
@@ -85,7 +99,18 @@ function Settings() {
                 }
             }
             
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            // Добавляем метаданные
+            const exportData = {
+                data: data,
+                meta: {
+                    exportedAt: new Date().toISOString(),
+                    app: 'TechTracker',
+                    version: '1.0.0',
+                    username: username
+                }
+            };
+            
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -102,6 +127,7 @@ function Settings() {
             
             setShowExportDialog(false);
         } catch (error) {
+            console.error('Error exporting data:', error);
             setMessage({
                 text: 'Ошибка при экспорте данных',
                 type: 'error'
@@ -126,6 +152,7 @@ function Settings() {
                 }, 2000);
             }
         } catch (error) {
+            console.error('Error clearing demo data:', error);
             setMessage({
                 text: 'Ошибка при очистке демо-данных',
                 type: 'error'
@@ -206,13 +233,15 @@ function Settings() {
                 <List>
                     <ListItem
                         secondaryAction={
-                            <Button
-                                variant="outlined"
-                                startIcon={<DownloadIcon />}
-                                onClick={() => setShowExportDialog(true)}
-                            >
-                                Экспорт
-                            </Button>
+                            <Tooltip title="Экспортировать все данные">
+                                <IconButton
+                                    edge="end"
+                                    onClick={() => setShowExportDialog(true)}
+                                    sx={{ color: 'primary.main' }}
+                                >
+                                    <DownloadIcon />
+                                </IconButton>
+                            </Tooltip>
                         }
                     >
                         <ListItemText
@@ -221,7 +250,7 @@ function Settings() {
                         />
                     </ListItem>
                     
-                    <Divider />
+                    <Divider component="li" />
                     
                     <ListItem
                         secondaryAction={
@@ -278,21 +307,28 @@ function Settings() {
             >
                 <DialogTitle>Подтверждение очистки данных</DialogTitle>
                 <DialogContent>
-                    <Typography>
+                    <Typography sx={{ mb: 2 }}>
                         Вы уверены, что хотите очистить все данные приложения?
                         Это действие нельзя отменить. Будут удалены:
                     </Typography>
-                    <ul>
+                    <ul style={{ paddingLeft: '20px', margin: 0 }}>
                         <li>Все технологии</li>
                         <li>Все заметки и ресурсы</li>
                         <li>Вся история изменений</li>
                     </ul>
+                    <Alert severity="warning" sx={{ mt: 2 }}>
+                        Ваши настройки темы и информация о входе сохранятся.
+                    </Alert>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setShowConfirmDialog(false)}>
                         Отмена
                     </Button>
-                    <Button onClick={handleClearData} color="error">
+                    <Button 
+                        onClick={handleClearData} 
+                        color="error"
+                        variant="contained"
+                    >
                         Очистить все данные
                     </Button>
                 </DialogActions>
@@ -324,7 +360,11 @@ function Settings() {
                     <Button onClick={() => setShowExportDialog(false)}>
                         Отмена
                     </Button>
-                    <Button onClick={handleExportData} variant="contained">
+                    <Button 
+                        onClick={handleExportData} 
+                        variant="contained"
+                        startIcon={<DownloadIcon />}
+                    >
                         Экспортировать
                     </Button>
                 </DialogActions>
